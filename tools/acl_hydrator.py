@@ -1,5 +1,10 @@
+import os
 import yaml
 import click
+
+'''what we are trying to do here is load an acl which contains either single subnets or references to objects which
+  in turn also contain either single subnets or references to other objects. The goal is to replace all references
+  with a list of concrete subnets so that it can be written out into a new file for further processing'''
 
 
 @click.command()
@@ -8,9 +13,30 @@ import click
 @click.option('--hydrated_file', default='./hydrated.yaml', help='Output file after hydration')
 def main(acl, object_dir, hydrated_file):
     print_title()
-    new_rule_set = load_rulesets(acl, object_dir)
-    print(new_rule_set)
+
+    '''open the main ACL file'''
+    with open(acl, 'r') as infile:
+        master_acl = yaml.load(infile)
+
+    '''open and concatenate all objects in the objects folder into one dictionary'''
+    master_object = {}
+    for filename in os.listdir(object_dir):
+        with open(object_dir + filename) as infile:
+            for entry in yaml.safe_load_all(infile):
+                master_object.update(entry)
+
+    new_rule_set = load_rulesets(master_acl, master_object)
+    # for rule in new_rule_set['ACL']['rules']:
+    #     print(rule['description'])
+    #     print(rule['_belongs_to'])
+    #     print(rule['source'])
+    #     print(rule['sport'])
+    #     print(rule['dest'])
+    #     print(rule['dport'])
+    #     print(rule['proto'])
+    #     print(rule['action'])
     # write_rule_set(rule_set, hydrated_file)
+    print(new_rule_set)
 
 
 def print_title():
@@ -19,69 +45,65 @@ def print_title():
     print('------------------------------')
 
 
-def load_rulesets(file, object_dir):
-    with open(file, 'r') as stream:
-        master_dict = yaml.load(stream)
-        counter = 0
+def load_rulesets(master_acl, master_object):
 
-        '''create copy of original and later only replace the bits that get hydrated. All the descriptions etc remain
-        untouched'''
+    '''create copy of original and later only replace the bits that get hydrated. All the descriptions etc remain
+    untouched'''
 
-        new_master_dict = master_dict
+    new_acl = master_acl
 
-        for rule in master_dict['ACL']['rules']:
+    for index, rule in enumerate(master_acl['ACL']['rules']):
 
-            '''check whether there is a further reference via curly brackets to another object, if so invoke
-            the recursive load_object function which returns with the full list'''
+        source, dest, sport, dport, proto = rule['source'], rule['dest'], \
+                                            rule['sport'], rule['dport'], rule['proto']
 
-            if rule['source'][0:2] == '{{':
-                object_file_name = rule['source'].strip('{{').strip('}}').strip() + '.yaml'
-                list_of_objects = load_object(object_dir + object_file_name, object_dir)
-                new_master_dict['ACL']['rules'][counter]['source'] = list_of_objects
+        '''check whether there is a further reference via curly brackets to another object, if so invoke
+        the recursive load_object function which returns with the full list '''
 
-            ''' do the above for the other four tuples i.e. ports, dest etc'''
+        if source[0:2] == '{{':
+            object_name = rule['source']
+            list_of_objects = load_object(object_name, master_object)
+            new_acl['ACL']['rules'][index]['source'] = list_of_objects
 
-            if rule['dest'][0:2] == '{{':
-                object_file_name = rule['dest'].strip('{{').strip('}}').strip() + '.yaml'
-                list_of_objects = load_object(object_dir + object_file_name, object_dir)
-                new_master_dict['ACL']['rules'][counter]['dest'] = list_of_objects
+        ''' do the above for the other four tuples i.e. ports, dest etc'''
 
-            if rule['sport'][0:2] == '{{':
-                object_file_name = rule['sport'].strip('{{').strip('}}').strip() + '.yaml'
-                list_of_objects = load_object(object_dir + object_file_name, object_dir)
-                new_master_dict['ACL']['rules'][counter]['sport'] = list_of_objects
+        if dest[0:2] == '{{':
+            object_name = rule['dest']
+            list_of_objects = load_object(object_name, master_object)
+            new_acl['ACL']['rules'][index]['dest'] = list_of_objects
 
-            if rule['dport'][0:2] == '{{':
-                object_file_name = rule['dport'].strip('{{').strip('}}').strip() + '.yaml'
-                list_of_objects = load_object(object_dir + object_file_name, object_dir)
-                new_master_dict['ACL']['rules'][counter]['dport'] = list_of_objects
+        if sport[0:2] == '{{':
+            object_name = rule['sport']
+            list_of_objects = load_object(object_name, master_object)
+            new_acl['ACL']['rules'][index]['sport'] = list_of_objects
 
-            if rule['proto'][0:2] == '{{':
-                object_file_name = rule['proto'].strip('{{').strip('}}').strip() + '.yaml'
-                list_of_objects = load_object(object_dir + object_file_name, object_dir)
-                new_master_dict['ACL']['rules'][counter]['proto'] = list_of_objects
+        if dport[0:2] == '{{':
+            object_name = rule['dport']
+            list_of_objects = load_object(object_name, master_object)
+            new_acl['ACL']['rules'][index]['dport'] = list_of_objects
 
-            counter += 1
-        return new_master_dict
+        if proto[0:2] == '{{':
+            object_name = rule['proto']
+            list_of_objects = load_object(object_name, master_object)
+            new_acl['ACL']['rules'][index]['proto'] = list_of_objects
+
+    return new_acl
 
 
-def load_object(file, object_dir):
-    with open(file, 'r') as stream:
-        list_of_objects = yaml.load(stream)
-        ''' list_of_objects can either be another reference, then this function will cal itself again, if not
+def load_object(object_name, master_object):
+    ''' list_of_objects can either be another reference, then this function will calls itself again, if not
          then we return the actual list'''
+    # print(master_object)
+    network_objects = []
 
-        network_objects = []
+    for network_object in master_object[object_name.strip('{} ')]:
+        if network_object[0:2] == '{{':
+            temp_object = load_object(network_object.strip('{} '), master_object)
+            network_objects.append(temp_object)
+        else:
+            network_objects.append(network_object)
 
-        for network_object in list_of_objects['object']:
-            if network_object[0:2] == '{{':
-                object_file_name = network_object.strip('{{').strip('}}') + '.yaml'
-                temp_objects = load_object(object_file_name, object_dir)
-                network_objects.append(temp_objects)
-            else:
-                network_objects.append(network_object)
-
-        return network_objects
+    return network_objects
 
 
 if __name__ == '__main__':
