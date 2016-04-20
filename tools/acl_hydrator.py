@@ -61,7 +61,7 @@ def load_rulesets(master_acl, master_object):
         the recursive load_object function which returns with the full list '''
 
         if source[0:2] == '{{':
-            object_name = rule['source']
+            object_name = source
             list_of_objects = load_object(object_name, master_object)
             new_acl['ACL']['rules'][index]['source'] = list_of_objects
 

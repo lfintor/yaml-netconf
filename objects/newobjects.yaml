@@ -1,0 +1,944 @@
+---
+net_rfc5771: "224.0.0.0/4"
+net_rfc6890: "240.0.0.0/4"
+net_rfc3330:
+  - "0.0.0.0"
+  - "127.0.0.0/8"
+  - "169.254.0.0/16"
+  - "192.0.2.0/24"
+  - "224.0.0.0/3"
+net_rfc1918:
+  - "10.0.0.0/8"
+  - "172.16.0.0/12"
+  - "192.168.0.0/16"
+net_rfc922: "255.255.255.255/32"
+net_rfc1112: "240.0.0.0/4"
+net_rfc1122:
+  - "0.0.0.0/8"
+  - "127.0.0.0/8"
+net_rfc2544: "198.18.0.0/15"
+net_rfc3171: "224.0.0.0/4"
+net_rfc3927: "169.254.0.0/16"
+net_rfc5736: "192.0.0.0/24"
+net_rfc5737:
+  - "192.0.2.0/24"
+  - "198.51.100.0/24"
+  - "203.0.113.0/24"
+net_rfc6598: "100.64.0.0/10"
+net_thunder_voice:
+  - "10.12.128.0/20"
+  - "10.12.144.0/20"
+net_bogon_cymru:
+  - "{{ net_rfc1112 }}"
+  - "{{ net_rfc1122 }}"
+  - "{{ net_rfc2544 }}"
+  - "{{ net_rfc3171 }}"
+  - "{{ net_rfc3927 }}"
+  - "{{ net_rfc5736 }}"
+  - "{{ net_rfc5737 }}"
+  - "{{ net_rfc6598 }}"
+net_rfc3068: "192.88.99.0/24"
+net_rfc5735:
+  - "{{ net_rfc922 }}"
+  - "{{ net_rfc3068 }}"
+  - "{{ net_bogon_cymru }}"
+net_broadcast_0: "0.0.0.0/32"
+net_broadcast_255: "255.255.255.255/32"
+net_any:
+  - "0.0.0.0/1"
+  - "128.0.0.0/1"
+net_hsrp_cr1_sky_tsfkk: "192.168.0.2"
+net_sky_lab_dslam:
+  - "87.87.250.69"
+  - "87.87.250.70/31"
+  - "87.87.22.32/27"
+net_sky_exch_dslam:
+  - "195.189.158.0/23"
+  - "87.87.248.0/21"
+  - "87.87.224.0/21"
+net_sky_exch_isam:
+  - "87.87.196.0/22"
+  - "87.87.96.0/19"
+  - "90.223.0.0/17"
+  - "90.223.64.0/19"
+net_sky_exch_isam_rfc1918: "10.236.0.0/16"
+net_sky_exch_mgmt:
+  - "85.188.192.0/18"
+  - "87.87.0.0/18"
+  - "87.87.64.0/19"
+  - "90.223.96.0/19"
+  - "2.127.128.0/18"
+  - "90.222.184.0/22"
+  - "90.222.224.0/19"
+  - "{{ net_sky_exch_isam }}"
+net_sky_exch_mgmt_rfc1918: "{{ net_sky_exch_isam_rfc1918 }}"
+net_sky_exch_ospf:
+  - "80.238.32.0/19"
+  - "87.87.128.0/18"
+  - "87.87.200.0/21"
+  - "90.223.176.0/21"
+net_sky_exch_wcpe:
+  - "87.87.232.0/21"
+  - "87.87.240.0/21"
+  - "87.87.208.0/20"
+  - "87.87.192.0/22"
+net_sky_exch_nonmgmt:
+  - "{{ net_sky_exch_ospf }}"
+  - "{{ net_sky_exch_dslam }}"
+net_sky_exch:
+  - "{{ net_sky_exch_mgmt }}"
+  - "{{ net_sky_exch_ospf }}"
+  - "{{ net_sky_exch_dslam }}"
+net_sky_exch_rfc1918: "{{ net_sky_exch_mgmt_rfc1918 }}"
+net_ent_exch_dslam: "82.108.10.0/23"
+net_ent_exch_mgmt:
+  - "217.206.240.0/20"
+  - "87.86.63.0/24"
+net_ent_exch_ospf: "82.111.96.0/20"
+net_ent_exch_nonmgmt:
+  - "{{ net_ent_exch_ospf }}"
+  - "{{ net_ent_exch_dslam }}"
+  - ";"
+net_ent_exch:
+  - "{{ net_ent_exch_mgmt }}"
+  - "{{ net_ent_exch_ospf }}"
+  - "{{ net_ent_exch_dslam }}"
+net_exch:
+  - "{{ net_sky_exch_mgmt }}"
+  - "{{ net_sky_exch_ospf }}"
+  - "{{ net_sky_exch_dslam }}"
+  - "{{ net_ent_exch_mgmt }}"
+  - "{{ net_ent_exch_ospf }}"
+  - "{{ net_ent_exch_dslam }}"
+net_exch_mgmt:
+  - "{{ net_sky_exch_mgmt }}"
+  - "{{ net_ent_exch_mgmt }}"
+net_exch_mgmt_rfc1918: "{{ net_sky_exch_rfc1918 }}"
+net_exch_rfc1918: "{{ net_exch_mgmt_rfc1918 }}"
+net_exch_ospf:
+  - "{{ net_sky_exch_ospf }}"
+  - "{{ net_ent_exch_ospf }}"
+net_exch_dslam:
+  - "{{ net_sky_exch_dslam }}"
+  - "{{ net_ent_exch_dslam }}"
+net_exch_nonmgmt:
+  - "{{ net_sky_exch_nonmgmt }}"
+  - "{{ net_ent_exch_nonmgmt }}"
+net_ovn_84_38_32_0: "84.38.32.0/21"
+net_ovn_89_200_128_0: "89.200.128.0/21"
+net_ovn_194_50_165_0: "194.50.165.0/24"
+net_ovn_2_120_0_0: "2.120.0.0/20"
+net_ovn_core_1: "{{ net_ovn_89_200_128_0 }}"
+net_ovn_core_2: "{{ net_ovn_84_38_32_0 }}"
+net_ovn_core_3: "{{ net_ovn_2_120_0_0 }}"
+net_ovn_2_127_128_0: "2.127.128.0/18"
+net_ovn_2_127_192_0: "2.127.192.0/18"
+net_wan_ce_interconnect:
+  - "10.244.9.0/24"
+  - "10.244.10.0/24"
+  - "10.244.49.0/24"
+  - "10.244.209.0/24"
+  - "10.244.255.0/24"
+  - "10.234.224.0/24"
+net_ovn_stuff:
+  - "{{ net_ovn_84_38_32_0 }}"
+  - "{{ net_ovn_89_200_128_0 }}"
+  - "{{ net_ovn_core_3 }}"
+net_ovn_core:
+  - "{{ net_ovn_core_1 }}"
+  - "{{ net_ovn_core_2 }}"
+  - "{{ net_ovn_core_3 }}"
+net_dr0_bllab_lo1: "90.223.239.97"
+net_metro_mpls_lo0: "90.223.128.0/19"
+net_metro_mpls_links: "10.235.0.0/16"
+net_ovn_pe_lo0:
+  - "89.200.128.0/24"
+  - "84.38.34.0/24"
+  - "{{ net_ovn_core_3 }}"
+  - "{{ net_metro_mpls_lo0 }}"
+net_ovn_pe_lo9:
+  - "90.207.255.0/24"
+  - "90.223.196.0/24"
+net_ovn_pe_lo99:
+  - "10.144.128.0/24"
+  - "10.244.43.0/24"
+net_ent_ipv4_loopbacks: "212.134.198.0/24"
+net_ent_mpls_loopbacks: "195.172.210.0/24"
+net_ent_ten_loopbacks: "87.86.72.0/22"
+net_ent_ten_tr_loopback: "87.86.74.0/24"
+net_ent_ten_dr_loopback_1x: "82.108.9.0/24"
+net_ent_loopbacks:
+  - "{{ net_ent_ipv4_loopbacks }}"
+  - "{{ net_ent_mpls_loopbacks }}"
+  - "{{ net_ent_ten_loopbacks }}"
+net_ovn_core_interconnect: "84.38.37.0/24"
+net_ovn_edge_and_core_interconnect: "2.127.241.0/24"
+net_nme_arbor_collection_nmlon: "84.38.35.64/28"
+net_nme_arbor_collection_nmedi: "84.38.35.80/28"
+net_nme_arbor_collection:
+  - "{{ net_nme_arbor_collection_nmlon }}"
+  - "{{ net_nme_arbor_collection_nmedi }}"
+net_ovn_bng:
+  - "2.127.238.0/24"
+  - "2.127.248.0/24"
+  - "151.231.254.0/24"
+  - "90.208.114.192/26"
+  - "90.223.191.0/24"
+net_2wire_pace_servers_prod: "216.52.29.118"
+net_2wire_pace_servers_staging:
+  - "216.52.29.253"
+  - "216.52.29.157"
+net_2wire_pace_proxy_prod: "216.52.29.140"
+net_2wire_pace_proxy_staging: "216.52.29.141"
+net_2wire_pace_proxy_prod_and_staging: "216.52.29.140/31"
+net_2wire_pace_servers:
+  - "{{ net_2wire_pace_servers_prod }}"
+  - "{{ net_2wire_pace_servers_staging }}"
+  - "{{ net_2wire_pace_proxy_prod_and_staging }}"
+net_ovn_bng_lns:
+  - "5.71.254.0/24"
+  - "2.127.238.0/24"
+  - "89.200.129.240/29"
+net_ovn_lac:
+  - "84.38.34.32/28"
+  - "84.38.34.48/31"
+  - "84.38.34.50/32"
+  - "{{ net_ovn_core_3 }}"
+net_dr10_bllon: "89.200.128.192"
+net_dr11_bllon: "89.200.128.196"
+net_dr12_bllon: "89.200.128.53"
+net_dr10_ennby: "89.200.128.204"
+net_dr11_ennby: "89.200.128.206"
+net_dr12_ennby: "89.200.128.194"
+net_dr13_ennby: "89.200.128.198"
+net_dr14_ennby: "89.200.128.215"
+net_dr10_enlba: "89.200.128.67"
+net_dr10_enmik: "84.38.34.2"
+net_dr10_enntg: "84.38.34.4"
+net_dr10_enslo: "84.38.34.6"
+net_dr10_syost: "84.38.34.8"
+net_ovn_opt4_lns_loopbacks:
+  - "{{ net_dr10_bllon }}"
+  - "{{ net_dr11_bllon }}"
+  - "{{ net_dr12_bllon }}"
+  - "{{ net_dr10_ennby }}"
+  - "{{ net_dr11_ennby }}"
+  - "{{ net_dr12_ennby }}"
+  - "{{ net_dr13_ennby }}"
+  - "{{ net_dr14_ennby }}"
+  - "{{ net_dr10_enlba }}"
+  - "{{ net_dr10_enmik }}"
+  - "{{ net_dr10_enntg }}"
+  - "{{ net_dr10_enslo }}"
+  - "{{ net_dr10_syost }}"
+net_ovn_opt4_lns_dpi_backhaul: "90.223.207.0/25"
+net_ovn_opt4_lns_uplinks:
+  - "90.207.238.0/26"
+  - "90.223.221.128/26"
+  - "2.127.237.0/25"
+net_ovn_opt4_lns:
+  - "{{ net_ovn_opt4_lns_uplinks }}"
+  - "{{ net_ovn_opt4_lns_dpi_backhaul }}"
+net_ovn_opt4_btcentrals: "82.108.57.0/24"
+net_ovn_ipsc_bt_transfer:
+  - "90.223.244.128/25"
+  - "90.223.197.128/26"
+net_ovn_ipsc_bt_bras:
+  - "213.120.186.0/23"
+  - "213.120.192.0/24"
+  - "81.145.120.0/23"
+  - "213.1.178.0/23"
+  - "213.1.180.0/22"
+  - "213.1.184.0/22"
+net_ovn_bt_bras:
+  - "213.1.178.0/24"
+  - "213.1.179.0/24"
+  - "213.1.180.0/24"
+  - "213.1.181.0/24"
+  - "213.1.182.0/24"
+  - "213.1.183.0/24"
+  - "213.1.184.0/24"
+  - "213.1.185.0/24"
+  - "213.1.186.0/24"
+  - "213.1.187.0/24"
+  - "213.120.186.0/24"
+  - "213.120.187.0/24"
+  - "213.120.192.0/24"
+  - "213.123.104.0/24"
+  - "81.145.117.0/24"
+  - "81.145.120.0/24"
+  - "81.145.121.0/24"
+net_ovn_ipsc_bt_radius:
+  - "213.120.186.0/23"
+  - "213.120.192.0/24"
+  - "81.145.120.0/23"
+net_ovn_3rd_party_bgp_transfer: "2.127.236.0/24"
+net_ovn_linx_bgp_transfer_thlon: "195.66.224.0/23"
+net_ovn_linx_bgp_transfer_enslo: "195.66.226.0/23"
+net_ovn_linx_bgp_transfer:
+  - "{{ net_ovn_linx_bgp_transfer_thlon }}"
+  - "{{ net_ovn_linx_bgp_transfer_enslo }}"
+net_ovn_ntt_bgp_transfer_thlon: "83.231.221.44/30"
+net_ovn_ntt_bgp_transfer_enslo: "83.231.199.160/30"
+net_ovn_ntt_bgp_transfer:
+  - "{{ net_ovn_ntt_bgp_transfer_thlon }}"
+  - "{{ net_ovn_ntt_bgp_transfer_enslo }}"
+net_ovn_telia_bgp_transfer_thlon: "80.239.193.108/30"
+net_ovn_telia_bgp_transfer_enslo: "213.248.89.116/30"
+net_ovn_telia_bgp_transfer:
+  - "{{ net_ovn_telia_bgp_transfer_thlon }}"
+  - "{{ net_ovn_telia_bgp_transfer_enslo }}"
+net_ovn_ntt_telia_bgp_transfer:
+  - "{{ net_ovn_ntt_bgp_transfer }}"
+  - "{{ net_ovn_telia_bgp_transfer }}"
+net_ovn_google_bgp_transfer_thlon: "89.200.130.122/31"
+net_ovn_google_bgp_transfer: "{{ net_ovn_google_bgp_transfer_thlon }}"
+net_ovn_bbc_bgp_transfer_thlon: "212.58.238.188/30"
+net_ovn_bbc_bgp_transfer: "{{ net_ovn_bbc_bgp_transfer_thlon }}"
+net_ovn_level3_bgp_transfer_enslo: "212.187.201.56/30"
+net_ovn_level3_bgp_transfer: "{{ net_ovn_level3_bgp_transfer_enslo }}"
+net_ovn_limelight_bgp_transfer_thlon: "87.248.208.160/30"
+net_ovn_limelight_bgp_transfer_enslo: "89.200.130.0/30"
+net_ovn_limelight_bgp_transfer:
+  - "{{ net_ovn_limelight_bgp_transfer_thlon }}"
+  - "{{ net_ovn_limelight_bgp_transfer_enslo }}"
+net_ovn_akamai_multihop_bgp_peer:
+  - "195.245.126.49"
+  - "195.245.126.50"
+net_ovn_akamai_multihop_bgp_loopback:
+  - "90.207.251.216/29"
+  - "176.255.247.128/28"
+net_ovn_google_multihop_bgp_transfer_thlon: "89.200.130.90/31"
+net_ovn_google_multihop_bgp_transfer_txlon:
+  - "72.14.219.250/31"
+  - "72.14.219.252/31"
+  - "72.14.222.84/31"
+net_ovn_google_multihop_bgp_transfer:
+  - "{{ net_ovn_google_multihop_bgp_transfer_thlon }}"
+  - "{{ net_ovn_google_multihop_bgp_transfer_txlon }}"
+net_ovn_google_multihop_bgp_peer_thlon: "64.233.175.72"
+net_ovn_google_multihop_bgp_thlon_loopback: "84.38.36.128"
+net_ovn_google_multihop_bgp_peer_txlon: "209.85.255.152"
+net_ovn_google_multihop_bgp_txlon_loopback: "84.38.36.129"
+net_ovn_google_multihop_bgp_loopbacks: "84.38.36.128/31"
+net_ovn_level3_multihop_bgp_transfer1_thlon: "195.50.122.112/30"
+net_ovn_level3_multihop_bgp_transfer2_thlon: "195.50.122.116/30"
+net_ovn_level3_multihop_bgp_transfer_thlon: "195.50.122.112/29"
+net_ovn_level3_multihop_bgp_transfer: "{{ net_ovn_level3_multihop_bgp_transfer_thlon }}"
+net_ovn_level3_multihop_bgp_peer: "4.69.186.20"
+net_ovn_level3_multihop_bgp_loopback: "89.200.128.87"
+net_ovn_cloud_direct_ebgp_transfer_sr0_bllon: "89.200.130.32/30"
+net_ovn_cloud_direct_ebgp_transfer_sr0_thlon: "89.200.130.36/30"
+net_ovn_cloud_direct_ebgp_transfer_sr10_bllon:
+  - "2.127.239.168/30"
+  - "2.127.239.176/30"
+net_ovn_cloud_direct_ebgp_transfer_sr10_thlon:
+  - "2.127.239.172/30"
+  - "2.127.239.180/30"
+net_ovn_cloud_direct_ebgp_transfer_sr13_bllon: "2.127.236.0/24"
+net_ovn_harp_roi_ebgp_transfer: "2.127.239.64/30"
+net_ovn_cloud_direct_ebgp_transfer_rfc1918:
+  - "10.246.25.0/24"
+  - "10.246.26.0/24"
+net_ovn_bt_ebgp_rfc1918: "10.246.250.0/25"
+net_ovn_cloud_direct_ebgp_transfer:
+  - "{{ net_ovn_cloud_direct_ebgp_transfer_sr0_bllon }}"
+  - "{{ net_ovn_cloud_direct_ebgp_transfer_sr0_thlon }}"
+  - "{{ net_ovn_cloud_direct_ebgp_transfer_sr10_bllon }}"
+  - "{{ net_ovn_cloud_direct_ebgp_transfer_sr10_thlon }}"
+  - "{{ net_ovn_cloud_direct_ebgp_transfer_sr13_bllon }}"
+net_cloud_mgmt: "94.119.248.0/24"
+net_cloud_lns_radius: "{{ net_cloud_mgmt }}"
+net_cloud_radius:
+  - "94.119.248.5/32"
+  - "94.119.248.6/31"
+net_ovn_esy_bgp_transfer_thlon:
+  - "89.200.130.2/31"
+  - "89.200.130.4/31"
+  - "89.200.130.56/31"
+  - "89.200.130.58/31"
+net_ovn_esy_bgp_transfer_txlon:
+  - "89.200.130.0/31"
+  - "89.200.130.6/31"
+  - "89.200.130.100/31"
+  - "89.200.130.102/31"
+net_ovn_esy_ten_bgp_transfer_thlon: "89.200.135.144/31"
+net_ovn_esy_ten_bgp_transfer_txlon: "89.200.135.142/31"
+net_ovn_esy_ten_bgp_transfer:
+  - "{{ net_ovn_esy_ten_bgp_transfer_thlon }}"
+  - "{{ net_ovn_esy_ten_bgp_transfer_txlon }}"
+net_ovn_esy_bgp_transfer:
+  - "89.200.130.0/29"
+  - "89.200.130.56/30"
+  - "89.200.130.100/30"
+  - "89.200.135.142/31"
+  - "89.200.135.144/31"
+net_ovn_skybet_bgp_transfer: "87.83.19.52/30"
+net_ovn_multihop_loopbacks:
+  - "{{ net_ovn_akamai_multihop_bgp_loopback }}"
+  - "{{ net_ovn_google_multihop_bgp_loopbacks }}"
+  - "{{ net_ovn_level3_multihop_bgp_loopback }}"
+net_ovn_direct_ebgp_transfer:
+  - "{{ net_ovn_linx_bgp_transfer }}"
+  - "{{ net_ovn_ntt_bgp_transfer }}"
+  - "{{ net_ovn_telia_bgp_transfer }}"
+  - "{{ net_ovn_google_bgp_transfer }}"
+  - "{{ net_ovn_bbc_bgp_transfer }}"
+  - "{{ net_ovn_level3_bgp_transfer }}"
+  - "{{ net_ovn_limelight_bgp_transfer }}"
+net_ovn_multihop_ebgp_transfer:
+  - "{{ net_ovn_google_multihop_bgp_transfer }}"
+  - "{{ net_ovn_level3_multihop_bgp_transfer }}"
+net_ovn_ebgp_transfer:
+  - "{{ net_ovn_direct_ebgp_transfer }}"
+  - "{{ net_ovn_multihop_ebgp_transfer }}"
+net_ovn_peer_bgp_transfer:
+  - "{{ net_ovn_linx_bgp_transfer }}"
+  - "{{ net_ovn_ntt_telia_bgp_transfer }}"
+  - "{{ net_ovn_google_bgp_transfer }}"
+  - "{{ net_ovn_bbc_bgp_transfer }}"
+net_ovn_pe_log_denies:
+  - "{{ net_ovn_pe_lo0 }}"
+  - "{{ net_ovn_pe_lo9 }}"
+  - "{{ net_ovn_pe_lo99 }}"
+  - "{{ net_ovn_opt4_btcentrals }}"
+  - "{{ net_ovn_ipsc_bt_transfer }}"
+  - "{{ net_ovn_bng }}"
+  - "{{ net_ovn_bng_lns }}"
+  - "{{ net_ovn_3rd_party_bgp_transfer }}"
+net_ovn:
+  - "{{ net_ovn_84_38_32_0 }}"
+  - "{{ net_ovn_89_200_128_0 }}"
+  - "{{ net_ovn_194_50_165_0 }}"
+  - "{{ net_ovn_opt4_lns }}"
+  - "{{ net_ovn_opt4_btcentrals }}"
+  - "{{ net_ovn_ipsc_bt_transfer }}"
+  - "{{ net_ovn_bng }}"
+  - "{{ net_ovn_3rd_party_bgp_transfer }}"
+  - "{{ net_ovn_core_3 }}"
+  - "{{ net_metro_mpls_lo0 }}"
+net_ovn_rrs:
+  - "89.200.128.88"
+  - "0.0.0.3"
+net_ovn_exch:
+  - "{{ net_ovn }}"
+  - "{{ net_exch }}"
+net_ovn_ospf_loopback:
+  - "'89.200.129.0/24',"
+  - "{{ net_ovn_core_3 }}"
+net_ovn_ospf_transfer:
+  - "'84.38.33.0/24',"
+  - "{{ net_ovn_core_3 }}"
+net_isam_ospf_transfer:
+  - "10.245.128.0/17"
+  - "10.238.0.0/17"
+net_ovn_mpls_bgp_transfer: "87.85.32.0/19"
+net_ovn_bgp_loopback: "{{ net_ovn_ospf_loopback }}"
+net_ovn_bgp_transfer_multihop:
+  - "89.200.130.0/24"
+  - "84.38.38.0/24"
+  - "{{ net_ovn_core_3 }}"
+net_ovn_bgp_transfer:
+  - "{{ net_ovn_bgp_transfer_multihop }}"
+  - "{{ net_ovn_mpls_bgp_transfer }}"
+  - "{{ net_ovn_opt4_btcentrals }}"
+  - "{{ net_ovn_ipsc_bt_transfer }}"
+  - "{{ net_ovn_3rd_party_bgp_transfer }}"
+net_ent_bgp: "{{ net_ent_ipv4_loopbacks }}"
+net_ovn_bgp:
+  - "{{ net_ovn_bgp_transfer }}"
+  - "{{ net_ovn_bgp_loopback }}"
+net_ovn_ospf:
+  - "{{ net_exch_ospf }}"
+  - "{{ net_ovn_ospf_loopback }}"
+  - "{{ net_ovn_ospf_transfer }}"
+  - "{{ net_ovn_opt4_lns }}"
+net_bgp:
+  - "{{ net_ovn_bgp }}"
+  - "{{ net_ent_bgp }}"
+net_ospf: "{{ net_ovn_ospf }}"
+net_ovn_sla:
+  - "{{ net_ovn_pe_lo0 }}"
+  - "{{ net_ovn_pe_lo99 }}"
+net_ovn_sla_shadow_routers: "84.38.36.0/25"
+net_ovn_sla_shadow_interconnects: "84.38.32.0/24"
+net_dcn: "10.200.0.0/15"
+net_lab_ent: "10.10.7.0/24"
+net_nvn:
+  - "10.32.0.0/15"
+  - "10.36.0.0/15"
+net_10_exceptions:
+  - "{{ net_ovn_pe_lo99 }}"
+  - "{{ net_dcn }}"
+  - "{{ net_nvn }}"
+  - "{{ net_wan_ce_interconnect }}"
+  - "{{ net_lab_ent }}"
+net_bllab_oss: "90.207.232.0/28"
+net_old_nme: "195.128.190.0/23"
+net_esy_nme: "{{ net_old_nme }}"
+net_new_nme_all: "84.38.40.0/21"
+net_nme_sm_bllon: "84.38.41.64/26"
+net_nme_sme_bllon: "{{ net_nme_sm_bllon }}"
+net_nme_sm_enedi: "84.38.41.192/26"
+net_nme_sme_enedi: "{{ net_nme_sm_enedi }}"
+net_nme_bllon:
+  - "'84.38.45.0/24',"
+  - "{{ net_nme_sme_bllon }}"
+net_nme_enedi:
+  - "'84.38.47.0/24',"
+  - "{{ net_nme_sme_enedi }}"
+net_nme_bllon_all:
+  - "84.38.44.0/23"
+  - "84.38.41.0/25"
+net_nme_enedi_all:
+  - "84.38.46.0/23"
+  - "84.38.41.128/25"
+net_nme_mgmt:
+  - "195.128.190.0"
+  - "0.0.1.63"
+net_nme_low:
+  - "195.128.190.0"
+  - "0.0.1.127"
+net_nme_high:
+  - "195.128.190.128"
+  - "0.0.1.127"
+net_nme_tiny:
+  - "195.128.190.128"
+  - "0.0.1.31"
+net_nme_snmp:
+  - "{{ net_nme_low }}"
+  - "{{ net_nme_tiny }}"
+net_nme_ftp:
+  - "195.128.190.164"
+  - "0.0.1.0"
+net_nme_ntp:
+  - "195.128.190.166"
+  - "0.0.1.0"
+net_old_nme_nms:
+  - "195.128.190.4"
+  - "0.0.1.0"
+net_nme_radius_uk:
+  - "195.128.190.172"
+  - "0.0.1.0"
+net_nme_mgmt_dcn:
+  - "{{ net_nme_mgmt }}"
+  - "{{ net_dcn }}"
+net_nme_fm_bllon: "84.38.45.128/26"
+net_nme_fm_enedi: "84.38.47.128/26"
+net_nme_pm_bllon: "84.38.45.64/26"
+net_nme_pm_enedi: "84.38.47.64/26"
+net_nme_nm_bllon: "84.38.45.0/26"
+net_nme_nms_bllon: "{{ net_nme_nm_bllon }}"
+net_nme_nm_enedi: "84.38.47.0/26"
+net_nme_nms_enedi: "{{ net_nme_nm_enedi }}"
+net_nme_fm_snmptrap_bllon:
+  - "84.38.45.128/26"
+  - "84.38.45.209/32"
+net_nme_fm_snmptrap_enedi:
+  - "84.38.47.128/26"
+  - "84.38.47.209/32"
+net_nme_fm_snmptrap:
+  - "{{ net_nme_fm_snmptrap_bllon }}"
+  - "{{ net_nme_fm_snmptrap_enedi }}"
+net_nme_fm_syslog_bllon:
+  - "84.38.45.128/26"
+  - "84.38.45.208/32"
+net_nme_fm_syslog_enedi:
+  - "84.38.47.128/26"
+  - "84.38.47.208/32"
+net_nme_fm_syslog:
+  - "{{ net_nme_fm_syslog_bllon }}"
+  - "{{ net_nme_fm_syslog_enedi }}"
+net_nme_nm_dns_bllon: "84.38.45.210"
+net_nme_nm_dns_enedi: "84.38.47.210"
+net_nme_nm_dns:
+  - "{{ net_nme_nm_dns_bllon }}"
+  - "{{ net_nme_nm_dns_enedi }}"
+net_nme_nm_ntp_bllon:
+  - "84.38.45.196/31"
+  - "84.38.45.197/32"
+net_nme_nm_ntp_enedi:
+  - "84.38.47.197/32"
+  - "84.38.47.198/32"
+net_nme_nm_ntp:
+  - "{{ net_nme_nm_ntp_bllon }}"
+  - "{{ net_nme_nm_ntp_enedi }}"
+net_nme_nm_syslog_bllon:
+  - "84.38.45.212/29"
+  - "84.38.45.220/30"
+net_nme_nm_syslog_enedi:
+  - "84.38.47.212/29"
+  - "84.38.47.220/30"
+net_nme_nm_syslog:
+  - "{{ net_nme_nm_syslog_bllon }}"
+  - "{{ net_nme_nm_syslog_enedi }}"
+net_nme_nm_devicedb_bllon: "84.38.45.7/32"
+net_nme_nm_devicedb_enedi: "84.38.47.10/32"
+net_nme_nm_devicedb:
+  - "{{ net_nme_nm_devicedb_bllon }}"
+  - "{{ net_nme_nm_devicedb_enedi }}"
+net_nme_nm_adminjump_bllon: "84.38.45.23/32"
+net_nme_nm_adminjump_enedi: "84.38.47.20/32"
+net_nme_nm_adminjump:
+  - "{{ net_nme_nm_adminjump_bllon }}"
+  - "{{ net_nme_nm_adminjump_enedi }}"
+net_nme_nm_ftp_bllon: "84.38.45.18/32"
+net_nme_nm_ftp_enedi: "84.38.47.14/32"
+net_nme_nm_ftp:
+  - "{{ net_nme_nm_ftp_bllon }}"
+  - "{{ net_nme_nm_ftp_enedi }}"
+net_nme_sm_aaa_bllon:
+  - "84.38.41.73/32"
+  - "84.38.41.74/32"
+net_nme_sm_aaa_enedi:
+  - "84.38.41.201/32"
+  - "84.38.41.202/32"
+net_nme_sm_aaa:
+  - "{{ net_nme_sm_aaa_bllon }}"
+  - "{{ net_nme_sm_aaa_enedi }}"
+net_nme_lom_bllon: "84.38.44.0/26"
+net_nme_lom_enedi: "84.38.46.0/26"
+net_nme_mg_bllon: "84.38.44.128/26"
+net_nme_mgt_bllon: "{{ net_nme_mg_bllon }}"
+net_nme_mg_enedi: "84.38.46.128/26"
+net_nme_mgt_enedi: "{{ net_nme_mg_enedi }}"
+net_nme_fm_pm_bllon:
+  - "{{ net_nme_fm_bllon }}"
+  - "{{ net_nme_pm_bllon }}"
+net_nme_fm_pm_enedi:
+  - "{{ net_nme_fm_enedi }}"
+  - "{{ net_nme_pm_enedi }}"
+net_nme_fm:
+  - "{{ net_nme_fm_bllon }}"
+  - "{{ net_nme_fm_enedi }}"
+net_nme_pm:
+  - "{{ net_nme_pm_bllon }}"
+  - "{{ net_nme_pm_enedi }}"
+net_nme_nm:
+  - "{{ net_nme_nm_bllon }}"
+  - "{{ net_nme_nm_enedi }}"
+net_nme_sm:
+  - "{{ net_nme_sm_bllon }}"
+  - "{{ net_nme_sm_enedi }}"
+net_nme_fm_pm:
+  - "{{ net_nme_fm }}"
+  - "{{ net_nme_pm }}"
+net_nme_fm_pm_nm_sm:
+  - "{{ net_nme_fm }}"
+  - "{{ net_nme_pm }}"
+  - "{{ net_nme_nm }}"
+net_nme_fm_pm_nm_sm:
+  - "{{ net_nme_fm }}"
+  - "{{ net_nme_pm }}"
+  - "{{ net_nme_nm }}"
+  - "{{ net_nme_sm }}"
+port_snmp_163:
+  - "{{ port_snmp }}"
+  - "{{ port_snmp_other }}"
+port_ldap: "389"
+port_mountd: "614"
+port_ldap_ssl: "636"
+port_ldap_both:
+  - "{{ port_ldap }}"
+  - "{{ port_ldap_ssl }}"
+port_https: "443"
+port_syslog: "514"
+port_rip: "520"
+port_impi: "623"
+port_ilom_cd: "5120"
+port_ilom_diskette: "5123"
+port_ilom_key_mouse: "5121"
+port_ilom_cd_key_mouse:
+  startrange: "5120"
+  endrange: "5121"
+port_ilom_video: "7578"
+port_ilom:
+  - "{{ port_ilom_cd_key_mouse }}"
+  - "{{ port_ilom_diskette }}"
+  - "{{ port_ilom_video }}"
+port_oracle: "1521"
+port_oracle_shared_server:
+  - "{{ port_oracle }}"
+  - "20001"
+  - "20005"
+port_nfs: "2049"
+port_nfs_temp_707: "707"
+port_mysql: "3306"
+port_mysql_tls: "3307"
+port_mysql_all:
+  - "{{ port_mysql }}"
+  - "{{ port_mysql_tls }}"
+port_nfs_pinned:
+  startrange: "4045"
+  endrange: "4047"
+port_googlemigrate: "4548"
+port_cata_api: "8901"
+port_googlemigrate_monitor: "9998"
+port_traceroute:
+  startrange: "33434"
+  endrange: "33523"
+port_common_udp:
+  startrange: "33434"
+  endrange: "33600"
+port_lsp_ping: "3503"
+port_ftp_ssh:
+  startrange: "21"
+  endrange: "22"
+port_ftp_http:
+  - "{{ port_ftp }}"
+  - "{{ port_http }}"
+port_ssh_telnet:
+  startrange: "22"
+  endrange: "23"
+port_ssh_googlemigrate:
+  - "{{ port_ssh }}"
+  - "{{ port_googlemigrate }}"
+port_http_imap:
+  - "{{ port_http }}"
+  - "{{ port_imap }}"
+port_https_imap:
+  - "{{ port_https }}"
+  - "{{ port_imap }}"
+port_http_https:
+  - "{{ port_http }}"
+  - "{{ port_https }}"
+port_http_https_imap:
+  - "{{ port_http }}"
+  - "{{ port_https }}"
+  - "{{ port_imap }}"
+port_http_nfs:
+  - "{{ port_http }}"
+  - "{{ port_nfs }}"
+port_rpc_nfs:
+  - "{{ port_rpc }}"
+  - "{{ port_nfs }}"
+port_rpc_mountd:
+  - "{{ port_rpc }}"
+  - "{{ port_mountd }}"
+port_rpc_mountd_nfs_pinned:
+  - "{{ port_rpc }}"
+  - "{{ port_mountd }}"
+  - "{{ port_nfs }}"
+  - "{{ port_nfs_pinned }}"
+port_rpc_mountd_nfs_pinned_http:
+  - "{{ port_http }}"
+  - "{{ port_rpc }}"
+  - "{{ port_mountd }}"
+  - "{{ port_nfs }}"
+  - "{{ port_nfs_pinned }}"
+port_netappsync:
+  startrange: "10565"
+  endrange: "10569"
+port_snapmirror: "10566"
+port_tacacs: "49"
+port_radius_old:
+  startrange: "1645"
+  endrange: "1646"
+port_radius_old_auth: "1645"
+port_radius_old_acct: "1646"
+port_radius_new:
+  startrange: "1812"
+  endrange: "1813"
+port_radius_new_auth: "1812"
+port_radius_new_acct: "1813"
+port_radius:
+  - "{{ port_radius_old }}"
+  - "{{ port_radius_new }}"
+port_radius_rtr:
+  startrange: "1812"
+  endrange: "1816"
+port_radius_weird:
+  startrange: "1655"
+  endrange: "1656"
+port_radius_auth:
+  - "{{ port_radius_old_auth }}"
+  - "{{ port_radius_new_auth }}"
+port_radius_acct:
+  - "{{ port_radius_old_acct }}"
+  - "{{ port_radius_new_acct }}"
+port_radius_old_weird:
+  - "{{ port_radius_old }}"
+  - "{{ port_radius_weird }}"
+port_radius_old_new_weird:
+  - "{{ port_radius_old }}"
+  - "{{ port_radius_new }}"
+  - "{{ port_radius_weird }}"
+port_ntp_mysql:
+  - "{{ port_ntp }}"
+  - "{{ port_mysql }}"
+port_hsrp: "1985"
+port_vnc:
+  startrange: "5900"
+  endrange: "5999"
+port_firmware_upgrade: "8001"
+port_connection_logs: "8080"
+port_cpe_disconnect: "8081"
+port_troll_notif:
+  startrange: "8080"
+  endrange: "8081"
+port_apt_cache: "3142"
+port_git: "9418"
+port_http_firmware:
+  - "{{ port_http }}"
+  - "{{ port_firmware_upgrade }}"
+port_http_disconnect:
+  - "{{ port_http }}"
+  - "{{ port_cpe_disconnect }}"
+port_http_connection_logs:
+  - "{{ port_http }}"
+  - "{{ port_connection_logs }}"
+port_http_https_connection_logs:
+  - "{{ port_http_https }}"
+  - "{{ port_connection_logs }}"
+port_sla_cntrl: "1967"
+port_sla_data1:
+  startrange: "16384"
+  endrange: "32766"
+port_sla_data2:
+  startrange: "49152"
+  endrange: "65534"
+port_sla_opt4: "99"
+port_sla_data:
+  - "{{ port_sla_data1 }}"
+  - "{{ port_sla_data2 }}"
+  - "{{ port_sla_opt4 }}"
+port_sla:
+  - "{{ port_sla_cntrl }}"
+  - "{{ port_sla_data1 }}"
+  - "{{ port_sla_data2 }}"
+port_tina_tcp: "2525"
+port_tina_udp: "2526"
+port_bgp: "179"
+port_bgp_syn:
+  - "eq"
+  - "179"
+  - "syn"
+port_bgp_all:
+  - "{{ port_bgp }}"
+  - "{{ port_bgp_syn }}"
+port_ldp: "646"
+port_bfd1: "3784"
+port_bfd2: "3785"
+port_bfd:
+  - "{{ port_bfd1 }}"
+  - "{{ port_bfd2 }}"
+port_privileged:
+  startrange: "1"
+  endrange: "1024"
+port_unprivileged:
+  startrange: "1023"
+  endrange: "65535"
+port_ephemeral:
+  startrange: "49151"
+  endrange: "65535"
+port_icmp_ping:
+  - "echo"
+  - "echo-reply"
+port_icmp_ping_unreach:
+  - "echo"
+  - "echo-reply"
+  - "ttl-exceeded"
+  - "unreachable"
+port_icmp_pingreply_unreach:
+  - "echo-reply"
+  - "ttl-exceeded"
+  - "unreachable"
+port_icmp_ping_unreach_param:
+  - "echo"
+  - "echo-reply"
+  - "ttl-exceeded"
+  - "unreachable"
+  - "parameter-problem"
+port_icmp_pingreply_unreach_param:
+  - "echo-reply"
+  - "ttl-exceeded"
+  - "unreachable"
+  - "parameter-problem"
+port_icmp_timestamps:
+  - "timestamp-request"
+  - "timestamp-reply"
+port_icmp_ping_unreach_param_tstamp:
+  - "{{ port_icmp_ping_unreach_param }}"
+  - "{{ port_icmp_timestamps }}"
+port_icmp_pingreply_unreach_param_tstamp:
+  - "{{ port_icmp_pingreply_unreach_param }}"
+  - "{{ port_icmp_timestamps }}"
+port_icmp_copp:
+  - "echo"
+  - "echo-reply"
+  - "ttl-exceeded"
+  - "port-unreachable"
+  - "packet-too-big"
+  - "unreachable"
+port_undesirable_1433: "1433"
+port_undesirable_1434: "1434"
+port_undesirable_445: "445"
+port_undesirable_135: "135"
+port_undesirable_137: "137"
+port_undesirable_138: "138"
+port_undesirable_139: "139"
+port_undesirable_msrpc: "msrpc"
+port_undesirable_netbios:
+  - "netbios-ns"
+  - "netbios-dgm"
+  - "netbios-ss"
+port_h248_text: "2944"
+port_h248_binary: "2945"
+port_h248:
+  startrange: "2944"
+  endrange: "2945"
+port_rtp: "{{ port_unprivileged }}"
+port_phoneline_statuschecker: "9050"
+port_unprompted_tl_1: "3082"
+port_prompted_tl_1: "3083"
+port_tl_1:
+  startrange: "3082"
+  endrange: "3083"
+port_mav_ml_discovery: "3087"
+port_esy_mgmt_tcp:
+  - "{{ port_http }}"
+  - "{{ port_tl_1 }}"
+port_isakmp: "500"
+port_nat_t: "4500"
+port_cisco_ipsla_alarm_ipsec:
+  - "{{ port_isakmp }}"
+  - "{{ port_nat_t }}"
+port_sip:
+  startrange: "5060"
+  endrange: "5061"
+port_rtp:
+  startrange: "1023"
+  endrange: "65535"
+port_l2tp: "1701"
+port_pcp:
+  startrange: "5350"
+  endrange: "5351"
+port_alu_mc_lag_udp: "1025"
+port_alu_mc_lag_tcp: "45067"
+port_radius_coa_udp: "3799"
+port_dslam_l2tp_7750: "49151"
+port_dslam_l2tp_7750_all:
+  startrange: "1"
+  endrange: "65535"
+port_rsvp: "1698"
+port_mmcc_tcp: "5050"
+port_mmcc_udp: "5050"
+port_rsync_tcp: "873"
+port_rsync_udp: "873"
+net_exch_mgmt_tmp:
+  - "85.188.192.0/18"
+  - "87.86.63.0/24"
+  - "87.87.0.0/17"
+  - "217.206.240.0/20"
+net_easynet_tmp:
+  - "195.128.190.0/23"
+  - "195.180.248.0/22"
+  - "91.195.166.0/23"
+  - "195.40.3.0/28"
+  - "82.108.12.128/25"
+  - "87.84.252.0/23"
+  - "87.84.236.0/23"
+  - "87.85.77.0/24"
+  - "87.84.53.0/24"
+net_core2_tmp: "84.38.34.0/24"
+...
