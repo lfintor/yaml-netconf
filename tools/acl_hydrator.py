@@ -46,7 +46,6 @@ def print_title():
 
 
 def load_rulesets(master_acl, master_object):
-
     '''create copy of original and later only replace the bits that get hydrated. All the descriptions etc remain
     untouched'''
 
@@ -54,8 +53,8 @@ def load_rulesets(master_acl, master_object):
 
     for index, rule in enumerate(master_acl['ACL']['rules']):
 
-        source, dest, sport, dport, proto = rule['source'], rule['dest'], \
-                                            rule['sport'], rule['dport'], rule['proto']
+        source, dest, sport, dport, proto = str(rule['source']), str(rule['dest']), \
+                                            str(rule['sport_start']), str(rule['dport_start']), str(rule['proto'])
 
         '''check whether there is a further reference via curly brackets to another object, if so invoke
         the recursive load_object function which returns with the full list '''
@@ -68,22 +67,22 @@ def load_rulesets(master_acl, master_object):
         ''' do the above for the other four tuples i.e. ports, dest etc'''
 
         if dest[0:2] == '{{':
-            object_name = rule['dest']
+            object_name = dest
             list_of_objects = load_object(object_name, master_object)
             new_acl['ACL']['rules'][index]['dest'] = list_of_objects
 
         if sport[0:2] == '{{':
-            object_name = rule['sport']
+            object_name = sport
             list_of_objects = load_object(object_name, master_object)
-            new_acl['ACL']['rules'][index]['sport'] = list_of_objects
+            new_acl['ACL']['rules'][index]['sport_start'] = list_of_objects
 
         if dport[0:2] == '{{':
-            object_name = rule['dport']
+            object_name = dport
             list_of_objects = load_object(object_name, master_object)
-            new_acl['ACL']['rules'][index]['dport'] = list_of_objects
+            new_acl['ACL']['rules'][index]['dport_start'] = list_of_objects
 
         if proto[0:2] == '{{':
-            object_name = rule['proto']
+            object_name = proto
             list_of_objects = load_object(object_name, master_object)
             new_acl['ACL']['rules'][index]['proto'] = list_of_objects
 
@@ -93,15 +92,19 @@ def load_rulesets(master_acl, master_object):
 def load_object(object_name, master_object):
     ''' list_of_objects can either be another reference, then this function will calls itself again, if not
          then we return the actual list'''
-    # print(master_object)
+
+    key = object_name.strip('{} ')
     network_objects = []
 
-    for network_object in master_object[object_name.strip('{} ')]:
-        if network_object[0:2] == '{{':
-            temp_object = load_object(network_object.strip('{} '), master_object)
-            network_objects.append(temp_object)
-        else:
-            network_objects.append(network_object)
+    if type(master_object[key]) == str:
+        network_objects = master_object[key]
+    elif type(master_object[key]) == list:
+        for network_object in master_object[key]:
+            if network_object[0:2] == '{{':
+                temp_object = load_object(network_object, master_object)
+                network_objects.append(temp_object)
+            else:
+                network_objects.append(network_object)
 
     return network_objects
 
