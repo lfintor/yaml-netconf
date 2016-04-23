@@ -26,17 +26,21 @@ def main(acl, object_dir, hydrated_file):
                 master_object.update(entry)
 
     new_rule_set = load_rulesets(master_acl, master_object)
+
+    for i,v in enumerate(new_rule_set['ACL']['rules']):
+        print(new_rule_set['ACL']['rules'][i].items())
+
     # for rule in new_rule_set['ACL']['rules']:
-    #     print(rule['description'])
-    #     print(rule['_belongs_to'])
-    #     print(rule['source'])
-    #     print(rule['sport'])
-    #     print(rule['dest'])
-    #     print(rule['dport'])
-    #     print(rule['proto'])
-    #     print(rule['action'])
-    # write_rule_set(rule_set, hydrated_file)
-    print(new_rule_set)
+    #      print(rule['description'])
+    #      print(rule['_belongs_to'])
+    #      print(rule['source'])
+    # #     print(rule['sport'])
+    #      print(rule['dest'])
+    # #     print(rule['dport'])
+    # #     print(rule['proto'])
+    # #     print(rule['action'])
+    # # write_rule_set(rule_set, hydrated_file)
+    # print(new_rule_set)
 
 
 def print_title():
