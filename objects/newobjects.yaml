@@ -648,9 +648,8 @@ port_impi: "623"
 port_ilom_cd: "5120"
 port_ilom_diskette: "5123"
 port_ilom_key_mouse: "5121"
-port_ilom_cd_key_mouse:
-  startrange: "5120"
-  endrange: "5121"
+port_ilom_cd_key_mouse_start: "5120"
+port_ilom_cd_key_mouse_end: "5121"
 port_ilom_video: "7578"
 port_ilom:
   - "{{ port_ilom_cd_key_mouse }}"
@@ -668,28 +667,23 @@ port_mysql_tls: "3307"
 port_mysql_all:
   - "{{ port_mysql }}"
   - "{{ port_mysql_tls }}"
-port_nfs_pinned:
-  startrange: "4045"
-  endrange: "4047"
+port_nfs_pinned_start: "4045"
+port_nfs_pinned_end: "4047"
 port_googlemigrate: "4548"
 port_cata_api: "8901"
 port_googlemigrate_monitor: "9998"
-port_traceroute:
-  startrange: "33434"
-  endrange: "33523"
-port_common_udp:
-  startrange: "33434"
-  endrange: "33600"
+port_traceroute_start: "33434"
+port_traceroute_end: "33523"
+port_common_udp_start: "33434"
+port_common_udp_end: "33600"
 port_lsp_ping: "3503"
-port_ftp_ssh:
-  startrange: "21"
-  endrange: "22"
+port_ftp_ssh_start: "21"
+port_ftp_ssh_end: "22"
 port_ftp_http:
   - "{{ port_ftp }}"
   - "{{ port_http }}"
-port_ssh_telnet:
-  startrange: "22"
-  endrange: "23"
+port_ssh_telnet_start: "22"
+port_ssh_telnet_end: "23"
 port_ssh_googlemigrate:
   - "{{ port_ssh }}"
   - "{{ port_googlemigrate }}"
@@ -726,30 +720,25 @@ port_rpc_mountd_nfs_pinned_http:
   - "{{ port_mountd }}"
   - "{{ port_nfs }}"
   - "{{ port_nfs_pinned }}"
-port_netappsync:
-  startrange: "10565"
-  endrange: "10569"
+port_netappsync_start: "10565"
+port_netappsync_end: "10569"
 port_snapmirror: "10566"
 port_tacacs: "49"
-port_radius_old:
-  startrange: "1645"
-  endrange: "1646"
+port_radius_old_start: "1645"
+port_radius_old_end: "1646"
 port_radius_old_auth: "1645"
 port_radius_old_acct: "1646"
-port_radius_new:
-  startrange: "1812"
-  endrange: "1813"
+port_radius_new_start: "1812"
+port_radius_new_end: "1813"
 port_radius_new_auth: "1812"
 port_radius_new_acct: "1813"
 port_radius:
   - "{{ port_radius_old }}"
   - "{{ port_radius_new }}"
-port_radius_rtr:
-  startrange: "1812"
-  endrange: "1816"
-port_radius_weird:
-  startrange: "1655"
-  endrange: "1656"
+port_radius_rtr_start: "1812"
+port_radius_rtr_end: "1816"
+port_radius_weird_start: "1655"
+port_radius_weird_end: "1656"
 port_radius_auth:
   - "{{ port_radius_old_auth }}"
   - "{{ port_radius_new_auth }}"
@@ -767,15 +756,13 @@ port_ntp_mysql:
   - "{{ port_ntp }}"
   - "{{ port_mysql }}"
 port_hsrp: "1985"
-port_vnc:
-  startrange: "5900"
-  endrange: "5999"
+port_vnc_start: "5900"
+port_vnc_end: "5999"
 port_firmware_upgrade: "8001"
 port_connection_logs: "8080"
 port_cpe_disconnect: "8081"
-port_troll_notif:
-  startrange: "8080"
-  endrange: "8081"
+port_troll_notif_start: "8080"
+port_troll_notif_end: "8081"
 port_apt_cache: "3142"
 port_git: "9418"
 port_http_firmware:
@@ -791,12 +778,10 @@ port_http_https_connection_logs:
   - "{{ port_http_https }}"
   - "{{ port_connection_logs }}"
 port_sla_cntrl: "1967"
-port_sla_data1:
-  startrange: "16384"
-  endrange: "32766"
-port_sla_data2:
-  startrange: "49152"
-  endrange: "65534"
+port_sla_data1_start: "16384"
+port_sla_data1_end: "32766"
+port_sla_data2_start: "49152"
+port_sla_data2_end: "65534"
 port_sla_opt4: "99"
 port_sla_data:
   - "{{ port_sla_data1 }}"
@@ -822,15 +807,12 @@ port_bfd2: "3785"
 port_bfd:
   - "{{ port_bfd1 }}"
   - "{{ port_bfd2 }}"
-port_privileged:
-  startrange: "1"
-  endrange: "1024"
-port_unprivileged:
-  startrange: "1023"
-  endrange: "65535"
-port_ephemeral:
-  startrange: "49151"
-  endrange: "65535"
+port_privileged_start: "1"
+port_privileged_end: "1024"
+port_unprivileged_start: "1023"
+port_unprivileged_end: "65535"
+port_ephemeral_start: "49151"
+port_ephemeral_end: "65535"
 port_icmp_ping:
   - "echo"
   - "echo-reply"
@@ -884,16 +866,14 @@ port_undesirable_netbios:
   - "netbios-ss"
 port_h248_text: "2944"
 port_h248_binary: "2945"
-port_h248:
-  startrange: "2944"
-  endrange: "2945"
+port_h248_start: "2944"
+port_h248_end: "2945"
 port_rtp: "{{ port_unprivileged }}"
 port_phoneline_statuschecker: "9050"
 port_unprompted_tl_1: "3082"
 port_prompted_tl_1: "3083"
-port_tl_1:
-  startrange: "3082"
-  endrange: "3083"
+port_tl_1_start: "3082"
+port_tl_1_end: "3083"
 port_mav_ml_discovery: "3087"
 port_esy_mgmt_tcp:
   - "{{ port_http }}"
@@ -903,23 +883,19 @@ port_nat_t: "4500"
 port_cisco_ipsla_alarm_ipsec:
   - "{{ port_isakmp }}"
   - "{{ port_nat_t }}"
-port_sip:
-  startrange: "5060"
-  endrange: "5061"
-port_rtp:
-  startrange: "1023"
-  endrange: "65535"
+port_sip_start: "5060"
+port_sip_end: "5061"
+port_rtp_start: "1023"
+port_rtp_end: "65535"
 port_l2tp: "1701"
-port_pcp:
-  startrange: "5350"
-  endrange: "5351"
+port_pcp_start: "5350"
+port_pcp_end: "5351"
 port_alu_mc_lag_udp: "1025"
 port_alu_mc_lag_tcp: "45067"
 port_radius_coa_udp: "3799"
 port_dslam_l2tp_7750: "49151"
-port_dslam_l2tp_7750_all:
-  startrange: "1"
-  endrange: "65535"
+port_dslam_l2tp_7750_all_start: "1"
+port_dslam_l2tp_7750_all_end: "65535"
 port_rsvp: "1698"
 port_mmcc_tcp: "5050"
 port_mmcc_udp: "5050"
